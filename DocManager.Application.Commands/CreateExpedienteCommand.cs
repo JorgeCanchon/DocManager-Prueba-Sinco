@@ -3,6 +3,7 @@ using MediatR;
 
 namespace DocManager.Application.Commands;
 
-public record CreateDocumentInstanceCommand : IRequest<Response<Guid>>
+public record CreateExpedienteCommand : IRequest<Response<Guid>>
 {
+
 }

@@ -2,7 +2,7 @@
 
 public class FieldListOption : AuditableBaseEntity
 {
-    public Guid DocumentTypeFieldId { get; set; }
-    public DocumentTypeField DocumentTypeField { get; set; } = null!;
+    public Guid CustomFieldId { get; set; }
+    public CustomField CustomField { get; set; } = null!;
     public string OptionValue { get; set; } = null!;
 }

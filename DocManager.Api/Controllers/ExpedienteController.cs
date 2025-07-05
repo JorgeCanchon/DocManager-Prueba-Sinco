@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DocManager.Api.Controllers
 {
-    public class DocumentFileController : BaseApiController
+    public class ExpedienteController : BaseApiController
     {
         //[HttpGet()]
         //public async Task<IActionResult> Get() =>
@@ -14,7 +14,7 @@ namespace DocManager.Api.Controllers
         //    Ok(await Mediator.Send(new GetAllCiudadesByIdQuery() { Id = id }));
 
         [HttpPost]
-        public async Task<IActionResult> Post(CreateDocumentInstanceCommand command) =>
+        public async Task<IActionResult> Post(CreateExpedienteCommand command) =>
             Ok(await Mediator!.Send(command));
 
         //[HttpPut("{id}")]

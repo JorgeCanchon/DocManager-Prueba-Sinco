@@ -1,9 +1,9 @@
 ﻿namespace DocManager.Domain.Entities;
 
-public class DocumentFile : AuditableBaseEntity
+public class Document : AuditableBaseEntity
 {
-    public Guid DocumentInstanceId { get; set; }
-    public DocumentInstance DocumentInstance { get; set; } = null!;
+    public Guid ExpedienteId { get; set; }
+    public Expediente Expediente { get; set; } = null!;
     public string FileName { get; set; } = null!;
     public string FileNameOriginal { get; set; } = null!;
     public string ContentType { get; set; } = null!;

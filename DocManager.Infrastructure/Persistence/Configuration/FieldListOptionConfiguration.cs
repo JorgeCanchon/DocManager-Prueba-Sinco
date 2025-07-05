@@ -8,9 +8,9 @@ public class FieldListOptionConfiguration : IEntityTypeConfiguration<FieldListOp
 {
     public void Configure(EntityTypeBuilder<FieldListOption> builder)
     {
-        builder.HasOne(o => o.DocumentTypeField)
+        builder.HasOne(o => o.CustomField)
                 .WithMany(c => c.Options)
-                .HasForeignKey(o => o.DocumentTypeFieldId)
+                .HasForeignKey(o => o.CustomFieldId)
                 .OnDelete(DeleteBehavior.Cascade);
     }
 }

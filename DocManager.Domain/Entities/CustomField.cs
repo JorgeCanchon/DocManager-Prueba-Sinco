@@ -1,9 +1,9 @@
 ﻿namespace DocManager.Domain.Entities;
 
-public class DocumentTypeField : AuditableBaseEntity
+public class CustomField : AuditableBaseEntity
 {
-    public Guid DocumentTypeId { get; set; }
-    public DocumentType DocumentType { get; set; } = null!;
+    public Guid ExpedienteTypeId { get; set; }
+    public ExpedienteType ExpedienteType { get; set; } = null!;
     public string FieldName { get; set; } = null!;
     public string DataType { get; set; } = null!;
     public bool IsRequired { get; set; }

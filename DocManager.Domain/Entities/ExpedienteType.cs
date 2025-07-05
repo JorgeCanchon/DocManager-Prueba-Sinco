@@ -1,8 +1,8 @@
 ﻿namespace DocManager.Domain.Entities;
 
-public class DocumentType : AuditableBaseEntity
+public class ExpedienteType : AuditableBaseEntity
 {
     public string Name { get; set; } = null!;
     public string Description { get; set; } = null!;
-    public ICollection<DocumentTypeField> Fields { get; set; } = [];
+    public ICollection<CustomField> CustomFields { get; set; } = [];
 }

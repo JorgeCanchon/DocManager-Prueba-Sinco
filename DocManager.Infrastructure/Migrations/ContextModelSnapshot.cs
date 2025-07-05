@@ -22,7 +22,43 @@ namespace DocManager.InfrastructureEF.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("DocManager.Domain.Entities.DocumentFile", b =>
+            modelBuilder.Entity("DocManager.Domain.Entities.CustomField", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DataType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ExpedienteTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("FieldName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsRequired")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExpedienteTypeId");
+
+                    b.ToTable("DocumentTypeField");
+                });
+
+            modelBuilder.Entity("DocManager.Domain.Entities.Document", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -35,7 +71,7 @@ namespace DocManager.InfrastructureEF.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("DocumentInstanceId")
+                    b.Property<Guid>("ExpedienteId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("FileHash")
@@ -64,12 +100,12 @@ namespace DocManager.InfrastructureEF.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DocumentInstanceId");
+                    b.HasIndex("ExpedienteId");
 
                     b.ToTable("DocumentFile");
                 });
 
-            modelBuilder.Entity("DocManager.Domain.Entities.DocumentInstance", b =>
+            modelBuilder.Entity("DocManager.Domain.Entities.Expediente", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -78,7 +114,7 @@ namespace DocManager.InfrastructureEF.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("DocumentTypeId")
+                    b.Property<Guid>("ExpedienteTypeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("FieldDataJson")
@@ -93,7 +129,7 @@ namespace DocManager.InfrastructureEF.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DocumentTypeId");
+                    b.HasIndex("ExpedienteTypeId");
 
                     b.HasIndex("UniqueIdentifier")
                         .IsUnique();
@@ -101,7 +137,7 @@ namespace DocManager.InfrastructureEF.Migrations
                     b.ToTable("DocumentInstance");
                 });
 
-            modelBuilder.Entity("DocManager.Domain.Entities.DocumentType", b =>
+            modelBuilder.Entity("DocManager.Domain.Entities.ExpedienteType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -129,42 +165,6 @@ namespace DocManager.InfrastructureEF.Migrations
                     b.ToTable("DocumentType");
                 });
 
-            modelBuilder.Entity("DocManager.Domain.Entities.DocumentTypeField", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DataType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("DocumentTypeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("FieldName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsRequired")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DocumentTypeId");
-
-                    b.ToTable("DocumentTypeField");
-                });
-
             modelBuilder.Entity("DocManager.Domain.Entities.FieldListOption", b =>
                 {
                     b.Property<Guid>("Id")
@@ -174,7 +174,7 @@ namespace DocManager.InfrastructureEF.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("DocumentTypeFieldId")
+                    b.Property<Guid>("CustomFieldId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("LastModified")
@@ -186,68 +186,68 @@ namespace DocManager.InfrastructureEF.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DocumentTypeFieldId");
+                    b.HasIndex("CustomFieldId");
 
                     b.ToTable("FieldListOption");
                 });
 
-            modelBuilder.Entity("DocManager.Domain.Entities.DocumentFile", b =>
+            modelBuilder.Entity("DocManager.Domain.Entities.CustomField", b =>
                 {
-                    b.HasOne("DocManager.Domain.Entities.DocumentInstance", "DocumentInstance")
-                        .WithMany("Documents")
-                        .HasForeignKey("DocumentInstanceId")
+                    b.HasOne("DocManager.Domain.Entities.ExpedienteType", "ExpedienteType")
+                        .WithMany("CustomFields")
+                        .HasForeignKey("ExpedienteTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("DocumentInstance");
+                    b.Navigation("ExpedienteType");
                 });
 
-            modelBuilder.Entity("DocManager.Domain.Entities.DocumentInstance", b =>
+            modelBuilder.Entity("DocManager.Domain.Entities.Document", b =>
                 {
-                    b.HasOne("DocManager.Domain.Entities.DocumentType", "DocumentType")
+                    b.HasOne("DocManager.Domain.Entities.Expediente", "Expediente")
+                        .WithMany("Documents")
+                        .HasForeignKey("ExpedienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Expediente");
+                });
+
+            modelBuilder.Entity("DocManager.Domain.Entities.Expediente", b =>
+                {
+                    b.HasOne("DocManager.Domain.Entities.ExpedienteType", "ExpedienteType")
                         .WithMany()
-                        .HasForeignKey("DocumentTypeId")
+                        .HasForeignKey("ExpedienteTypeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("DocumentType");
-                });
-
-            modelBuilder.Entity("DocManager.Domain.Entities.DocumentTypeField", b =>
-                {
-                    b.HasOne("DocManager.Domain.Entities.DocumentType", "DocumentType")
-                        .WithMany("Fields")
-                        .HasForeignKey("DocumentTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DocumentType");
+                    b.Navigation("ExpedienteType");
                 });
 
             modelBuilder.Entity("DocManager.Domain.Entities.FieldListOption", b =>
                 {
-                    b.HasOne("DocManager.Domain.Entities.DocumentTypeField", "DocumentTypeField")
+                    b.HasOne("DocManager.Domain.Entities.CustomField", "CustomField")
                         .WithMany("Options")
-                        .HasForeignKey("DocumentTypeFieldId")
+                        .HasForeignKey("CustomFieldId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("DocumentTypeField");
+                    b.Navigation("CustomField");
                 });
 
-            modelBuilder.Entity("DocManager.Domain.Entities.DocumentInstance", b =>
+            modelBuilder.Entity("DocManager.Domain.Entities.CustomField", b =>
+                {
+                    b.Navigation("Options");
+                });
+
+            modelBuilder.Entity("DocManager.Domain.Entities.Expediente", b =>
                 {
                     b.Navigation("Documents");
                 });
 
-            modelBuilder.Entity("DocManager.Domain.Entities.DocumentType", b =>
+            modelBuilder.Entity("DocManager.Domain.Entities.ExpedienteType", b =>
                 {
-                    b.Navigation("Fields");
-                });
-
-            modelBuilder.Entity("DocManager.Domain.Entities.DocumentTypeField", b =>
-                {
-                    b.Navigation("Options");
+                    b.Navigation("CustomFields");
                 });
 #pragma warning restore 612, 618
         }
