@@ -2,9 +2,11 @@
   "profiles": {
     "DocManager.Api": {
       "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "",
-        "DocManager.ConnectionString": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DocManager.ConnectionString": "Server=localhost;Database=DocManagerDb;User Id=sa;Password=docManager!123*;TrustServerCertificate=True;MultipleActiveResultSets=True;"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5038"
@@ -14,7 +16,7 @@
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
       "environmentVariables": {
         "ASPNETCORE_HTTP_PORTS": "8080",
-        "DocManager.ConnectionString": ""
+        "DocManager.ConnectionString": "Server=localhost;Database=DocManagerDb;User Id=sa;Password=docManager!123*;TrustServerCertificate=True;MultipleActiveResultSets=True;"
       },
       "publishAllPorts": true,
       "useSSL": false

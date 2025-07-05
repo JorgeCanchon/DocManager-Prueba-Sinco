@@ -1,0 +1,59 @@
+services:
+  dbsqlserver:
+    container_name: dbsqlserver
+    hostname: dbsqlserver
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    restart: always
+    ports:
+        - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=docManager!123*
+    volumes:
+      - dbsqlserver_data:/var/opt/mssql
+    networks:
+      - docmanager-network
+  # DocManager.Api:
+  #   container_name: docmanager-api
+  #   hostname: docmanager-api
+  #   image: ${DOCKER_REGISTRY-}
+  #   build:
+  #     context: .
+  #     dockerfile: DocManager.Api/Dockerfile
+  #   restart: always
+  #   ports:
+  #     - "5000:80"
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Production
+  #     - DocManager.ConnectionString=Server=dbsqlserver;Database=DocManagerDb;User Id=sa;Password=docManager!123*;
+  #     - ASPNETCORE_URLS=http://+:80
+  #   depends_on:
+  #     - dbsqlserver
+  #   networks:
+  #     - docmanager-network 
+  # DocManager.React:    
+  #   container_name: docmanager-react
+  #   hostname: docmanager-react
+  #   image: ${DOCKER_REGISTRY-}
+  #   build:
+  #     context: ./docmanager-front
+  #     dockerfile: ./docmanager-front/Dockerfile
+  #   restart: always
+  #   ports:
+  #     - "3000:80"
+  #   environment:
+  #     - REACT_APP_API_URL=http://docmanager-api:80
+  #   depends_on:
+  #     - DocManager.Api
+  #     - condition: service_started
+  #   networks:
+  #         - docmanager-network
+
+networks:
+  docmanager-network:
+        driver: bridge
+  default:
+     external: true  
+     name: docmanager-network
+volumes:
+  dbsqlserver_data:
