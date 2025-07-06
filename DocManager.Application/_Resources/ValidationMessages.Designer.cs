@@ -22,14 +22,14 @@ namespace DocManager.Application._Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ApplicationErrors {
+    internal class ValidationMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ApplicationErrors() {
+        internal ValidationMessages() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace DocManager.Application._Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DocManager.Application._Resources.ApplicationErrors", typeof(ApplicationErrors).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DocManager.Application._Resources.ValidationMessages", typeof(ValidationMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,20 @@ namespace DocManager.Application._Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Entity {0} not found..
+        ///   Looks up a localized string similar to The property {0} must not exceed {1} characters..
         /// </summary>
-        internal static string EntityNotFound {
+        internal static string ExceedLimit {
             get {
-                return ResourceManager.GetString("EntityNotFound", resourceCulture);
+                return ResourceManager.GetString("ExceedLimit", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Se ha producido uno o más errores de validación.
+        ///   Looks up a localized string similar to The property {0} is required..
         /// </summary>
-        internal static string HasValidationError {
+        internal static string IsRequired {
             get {
-                return ResourceManager.GetString("HasValidationError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No records found.
-        /// </summary>
-        internal static string RecordNotFound {
-            get {
-                return ResourceManager.GetString("RecordNotFound", resourceCulture);
+                return ResourceManager.GetString("IsRequired", resourceCulture);
             }
         }
     }

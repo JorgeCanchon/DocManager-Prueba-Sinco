@@ -11,11 +11,12 @@ public class Context : DbContext
         ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
     }
 
-    public DbSet<ExpedienteType> DocumentType { get; set; } = null!;
-    public DbSet<CustomField> DocumentTypeField { get; set; } = null!;
+    public DbSet<ExpedienteType> ExpedienteType { get; set; } = null!;
+    public DbSet<CustomField> CustomField { get; set; } = null!;
     public DbSet<FieldListOption> FieldListOption { get; set; } = null!;
-    public DbSet<Expediente> DocumentInstance { get; set; } = null!;
-    public DbSet<Document> DocumentFile { get; set; } = null!;
+    public DbSet<FieldValue> FieldValue { get; set; } = null!;
+    public DbSet<Expediente> Expediente { get; set; } = null!;
+    public DbSet<Document> Document { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

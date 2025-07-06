@@ -7,7 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="13.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DocManager.Application.Shared\DocManager.Application.Shared.csproj" />
+    <ProjectReference Include="..\DocManager.Domain\DocManager.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Expediente\" />
+    <Folder Include="CustomField\" />
   </ItemGroup>
 
 </Project>

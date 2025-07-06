@@ -13,6 +13,5 @@ public class ExpedienteConfiguration : IEntityTypeConfiguration<Expediente>
               .WithMany()
               .HasForeignKey(e => e.ExpedienteTypeId)
               .OnDelete(DeleteBehavior.Restrict);
-        builder.Property(e => e.FieldDataJson).HasColumnType("nvarchar(MAX)");
     }
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DocManager.InfrastructureEF.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20250705180818_InitialMigrations")]
-    partial class InitialMigrations
+    [Migration("20250706003134_initialMigration")]
+    partial class initialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,9 +34,8 @@ namespace DocManager.InfrastructureEF.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DataType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DataType")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("ExpedienteTypeId")
                         .HasColumnType("uniqueidentifier");
@@ -58,7 +57,7 @@ namespace DocManager.InfrastructureEF.Migrations
 
                     b.HasIndex("ExpedienteTypeId");
 
-                    b.ToTable("DocumentTypeField");
+                    b.ToTable("CustomField");
                 });
 
             modelBuilder.Entity("DocManager.Domain.Entities.Document", b =>
@@ -105,7 +104,7 @@ namespace DocManager.InfrastructureEF.Migrations
 
                     b.HasIndex("ExpedienteId");
 
-                    b.ToTable("DocumentFile");
+                    b.ToTable("Document");
                 });
 
             modelBuilder.Entity("DocManager.Domain.Entities.Expediente", b =>
@@ -119,9 +118,6 @@ namespace DocManager.InfrastructureEF.Migrations
 
                     b.Property<Guid>("ExpedienteTypeId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("FieldDataJson")
-                        .HasColumnType("nvarchar(MAX)");
 
                     b.Property<DateTime?>("LastModified")
                         .HasColumnType("datetime2");
@@ -137,7 +133,7 @@ namespace DocManager.InfrastructureEF.Migrations
                     b.HasIndex("UniqueIdentifier")
                         .IsUnique();
 
-                    b.ToTable("DocumentInstance");
+                    b.ToTable("Expediente");
                 });
 
             modelBuilder.Entity("DocManager.Domain.Entities.ExpedienteType", b =>
@@ -165,7 +161,7 @@ namespace DocManager.InfrastructureEF.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("DocumentType");
+                    b.ToTable("ExpedienteType");
                 });
 
             modelBuilder.Entity("DocManager.Domain.Entities.FieldListOption", b =>
@@ -192,6 +188,37 @@ namespace DocManager.InfrastructureEF.Migrations
                     b.HasIndex("CustomFieldId");
 
                     b.ToTable("FieldListOption");
+                });
+
+            modelBuilder.Entity("DocManager.Domain.Entities.FieldValue", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("CustomFieldId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ExpedienteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomFieldId");
+
+                    b.HasIndex("ExpedienteId");
+
+                    b.ToTable("FieldValue");
                 });
 
             modelBuilder.Entity("DocManager.Domain.Entities.CustomField", b =>
@@ -238,6 +265,25 @@ namespace DocManager.InfrastructureEF.Migrations
                     b.Navigation("CustomField");
                 });
 
+            modelBuilder.Entity("DocManager.Domain.Entities.FieldValue", b =>
+                {
+                    b.HasOne("DocManager.Domain.Entities.CustomField", "CustomField")
+                        .WithMany()
+                        .HasForeignKey("CustomFieldId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DocManager.Domain.Entities.Expediente", "Expediente")
+                        .WithMany("FieldValues")
+                        .HasForeignKey("ExpedienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CustomField");
+
+                    b.Navigation("Expediente");
+                });
+
             modelBuilder.Entity("DocManager.Domain.Entities.CustomField", b =>
                 {
                     b.Navigation("Options");
@@ -246,6 +292,8 @@ namespace DocManager.InfrastructureEF.Migrations
             modelBuilder.Entity("DocManager.Domain.Entities.Expediente", b =>
                 {
                     b.Navigation("Documents");
+
+                    b.Navigation("FieldValues");
                 });
 
             modelBuilder.Entity("DocManager.Domain.Entities.ExpedienteType", b =>

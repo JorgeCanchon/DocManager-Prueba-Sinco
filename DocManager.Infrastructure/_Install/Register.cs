@@ -1,6 +1,8 @@
-﻿using DocManager.Domain.Services.Persistence;
+﻿using DocManager.Domain.Services;
+using DocManager.Domain.Services.Persistence;
 using DocManager.InfrastructureEF.Persistence;
 using DocManager.InfrastructureEF.Persistence.Repository;
+using DocManager.InfrastructureEF.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,8 +20,7 @@ public static class Register
             npgsqlOptions.CommandTimeout(60);
         }), ServiceLifetime.Transient);
 
-        #region Repositories
         services.AddTransient(typeof(IRepositoryAsync<>), typeof(RepositoryAsync<>));
-        #endregion
+        services.AddTransient<IGetExpedienteTypeService, GetExpedienteTypeService>();
     }
 }

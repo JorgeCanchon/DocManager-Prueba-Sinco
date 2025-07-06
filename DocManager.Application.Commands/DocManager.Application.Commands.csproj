@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DocManager.Application.Shared\DocManager.Application.Shared.csproj" />
+    <ProjectReference Include="..\DocManager.Domain.Shared\DocManager.Domain.Shared.csproj" />
+    <ProjectReference Include="..\DocManager.Domain\DocManager.Domain.csproj" />
   </ItemGroup>
 
 </Project>

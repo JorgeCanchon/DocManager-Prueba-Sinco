@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DocManager.InfrastructureEF.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigrations : Migration
+    public partial class initialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "DocumentType",
+                name: "ExpedienteType",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -23,39 +23,17 @@ namespace DocManager.InfrastructureEF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DocumentType", x => x.Id);
+                    table.PrimaryKey("PK_ExpedienteType", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "DocumentInstance",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ExpedienteTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UniqueIdentifier = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FieldDataJson = table.Column<string>(type: "nvarchar(MAX)", nullable: true),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DocumentInstance", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DocumentInstance_DocumentType_ExpedienteTypeId",
-                        column: x => x.ExpedienteTypeId,
-                        principalTable: "DocumentType",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DocumentTypeField",
+                name: "CustomField",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ExpedienteTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FieldName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DataType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DataType = table.Column<int>(type: "int", nullable: false),
                     IsRequired = table.Column<bool>(type: "bit", nullable: false),
                     Order = table.Column<int>(type: "int", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -63,40 +41,34 @@ namespace DocManager.InfrastructureEF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DocumentTypeField", x => x.Id);
+                    table.PrimaryKey("PK_CustomField", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DocumentTypeField_DocumentType_ExpedienteTypeId",
+                        name: "FK_CustomField_ExpedienteType_ExpedienteTypeId",
                         column: x => x.ExpedienteTypeId,
-                        principalTable: "DocumentType",
+                        principalTable: "ExpedienteType",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "DocumentFile",
+                name: "Expediente",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ExpedienteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FileNameOriginal = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ContentType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FileSize = table.Column<long>(type: "bigint", nullable: false),
-                    UploadDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FileHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExpedienteTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UniqueIdentifier = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DocumentFile", x => x.Id);
+                    table.PrimaryKey("PK_Expediente", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DocumentFile_DocumentInstance_ExpedienteId",
-                        column: x => x.ExpedienteId,
-                        principalTable: "DocumentInstance",
+                        name: "FK_Expediente_ExpedienteType_ExpedienteTypeId",
+                        column: x => x.ExpedienteTypeId,
+                        principalTable: "ExpedienteType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -113,63 +85,131 @@ namespace DocManager.InfrastructureEF.Migrations
                 {
                     table.PrimaryKey("PK_FieldListOption", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FieldListOption_DocumentTypeField_CustomFieldId",
+                        name: "FK_FieldListOption_CustomField_CustomFieldId",
                         column: x => x.CustomFieldId,
-                        principalTable: "DocumentTypeField",
+                        principalTable: "CustomField",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Document",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ExpedienteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FileNameOriginal = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ContentType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FileSize = table.Column<long>(type: "bigint", nullable: false),
+                    UploadDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FileHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Document", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Document_Expediente_ExpedienteId",
+                        column: x => x.ExpedienteId,
+                        principalTable: "Expediente",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FieldValue",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ExpedienteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CustomFieldId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FieldValue", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FieldValue_CustomField_CustomFieldId",
+                        column: x => x.CustomFieldId,
+                        principalTable: "CustomField",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FieldValue_Expediente_ExpedienteId",
+                        column: x => x.ExpedienteId,
+                        principalTable: "Expediente",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_DocumentFile_ExpedienteId",
-                table: "DocumentFile",
-                column: "ExpedienteId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DocumentInstance_ExpedienteTypeId",
-                table: "DocumentInstance",
+                name: "IX_CustomField_ExpedienteTypeId",
+                table: "CustomField",
                 column: "ExpedienteTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DocumentInstance_UniqueIdentifier",
-                table: "DocumentInstance",
+                name: "IX_Document_ExpedienteId",
+                table: "Document",
+                column: "ExpedienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Expediente_ExpedienteTypeId",
+                table: "Expediente",
+                column: "ExpedienteTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Expediente_UniqueIdentifier",
+                table: "Expediente",
                 column: "UniqueIdentifier",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_DocumentType_Name",
-                table: "DocumentType",
+                name: "IX_ExpedienteType_Name",
+                table: "ExpedienteType",
                 column: "Name",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DocumentTypeField_ExpedienteTypeId",
-                table: "DocumentTypeField",
-                column: "ExpedienteTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FieldListOption_CustomFieldId",
                 table: "FieldListOption",
                 column: "CustomFieldId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FieldValue_CustomFieldId",
+                table: "FieldValue",
+                column: "CustomFieldId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FieldValue_ExpedienteId",
+                table: "FieldValue",
+                column: "ExpedienteId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "DocumentFile");
+                name: "Document");
 
             migrationBuilder.DropTable(
                 name: "FieldListOption");
 
             migrationBuilder.DropTable(
-                name: "DocumentInstance");
+                name: "FieldValue");
 
             migrationBuilder.DropTable(
-                name: "DocumentTypeField");
+                name: "CustomField");
 
             migrationBuilder.DropTable(
-                name: "DocumentType");
+                name: "Expediente");
+
+            migrationBuilder.DropTable(
+                name: "ExpedienteType");
         }
     }
 }

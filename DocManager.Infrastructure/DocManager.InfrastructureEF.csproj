@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="_Resources\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>
