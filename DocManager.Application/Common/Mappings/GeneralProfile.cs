@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DocManager.Application.Commands.CustomField;
+using DocManager.Application.Commands.Document;
 using DocManager.Application.Commands.Expediente;
 using DocManager.Application.Commands.ExpedienteType;
 using DocManager.Domain.Entities;
@@ -12,6 +13,7 @@ public class GeneralProfile : Profile
     {
         //Map commands
         CreateMap<CreateExpedienteTypeCommand, ExpedienteType>().ReverseMap();
+        CreateMap<CreateDocumentCommand, Document>().ReverseMap();
         CreateMap<CreateExpedienteCommand, Expediente>()
             .ForMember(dest => dest.ExpedienteTypeId, src => src.MapFrom(s => s.ExpedienteTypeId))
             .ForMember(dest => dest.UniqueIdentifier, src => src.MapFrom(s => s.UniqueIdentifier))
