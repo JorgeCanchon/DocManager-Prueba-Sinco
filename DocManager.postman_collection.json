@@ -1,0 +1,291 @@
+{
+	"info": {
+		"_postman_id": "e10a8e4d-b340-4ef8-b22d-143d259975e6",
+		"name": "DocManager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8889993"
+	},
+	"item": [
+		{
+			"name": "ExpedienteType",
+			"item": [
+				{
+					"name": "CreateExpedienteType",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"test 1\",\r\n  \"description\": \"test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}api/ExpedienteType",
+							"host": [
+								"{{localhost}}api"
+							],
+							"path": [
+								"ExpedienteType"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllExpedienteTypeQuery",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}api/ExpedienteType",
+							"host": [
+								"{{localhost}}api"
+							],
+							"path": [
+								"ExpedienteType"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetExpedienteTypeByIdQuery",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}api/ExpedienteType/FCF24482-D4D2-4C7B-9B21-F93AB4A34783",
+							"host": [
+								"{{localhost}}api"
+							],
+							"path": [
+								"ExpedienteType",
+								"FCF24482-D4D2-4C7B-9B21-F93AB4A34783"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Expediente",
+			"item": [
+				{
+					"name": "CreateExpediente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"expedienteTypeId\": \"fcf24482-d4d2-4c7b-9b21-f93ab4a34783\",\r\n  \"uniqueIdentifier\": \"EMP-001\",\r\n  \"fieldValues\": [\r\n    {\r\n      \"customFieldId\": \"1e2e4bf5-0fb4-411f-9a3a-5fe4c0b0dac1\",\r\n      \"value\": \"Activo\",\r\n      \"expedienteId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}api/Expediente",
+							"host": [
+								"{{localhost}}api"
+							],
+							"path": [
+								"Expediente"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CustomField",
+			"item": [
+				{
+					"name": "CreateCustomField",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"expedienteTypeId\": \"FCF24482-D4D2-4C7B-9B21-F93AB4A34783\",\r\n  \"fieldName\": \"Estado\",\r\n  \"dataType\": 0,\r\n  \"isRequired\": true,\r\n  \"order\": 0,\r\n   \"options\": [\r\n     {\r\n         \"optionValue\": \"Activo\"\r\n     },{\r\n          \"optionValue\": \"Inactivo\"\r\n     } \r\n   ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}api/CustomField",
+							"host": [
+								"{{localhost}}api"
+							],
+							"path": [
+								"CustomField"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FieldListOption",
+			"item": [
+				{
+					"name": "CreateFieldListOption",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}api/FieldListOption",
+							"host": [
+								"{{localhost}}api"
+							],
+							"path": [
+								"FieldListOption"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FieldValue",
+			"item": [
+				{
+					"name": "CreateFieldValue",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}api/FieldValue",
+							"host": [
+								"{{localhost}}api"
+							],
+							"path": [
+								"FieldValue"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Document",
+			"item": [
+				{
+					"name": "CreateDocument",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "FormFile",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "ExpedienteID",
+									"value": "FCF24482-D4D2-4C7B-9B21-F93AB4A34783",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{localhost}}api/Document",
+							"host": [
+								"{{localhost}}api"
+							],
+							"path": [
+								"Document"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "localhost",
+			"value": "http://localhost:5038/",
+			"type": "string"
+		},
+		{
+			"key": "docker",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"value": "",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}

@@ -36,5 +36,8 @@ HOST: locahost
 USER: sa
 PASSWORD: docManager!123*
 
-Abra la solucion y ejecute el proyecto con DocManager.Api
+# Ejecutar solución
 
+Abra la solución con visual studio y ejecute el proyecto con DocManager.Api
+
+Importe la collection DocManager.postman_collection.json de postman que esta en la raiz del proyecto y ejecute los requests
