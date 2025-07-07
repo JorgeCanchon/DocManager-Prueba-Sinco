@@ -1,0 +1,26 @@
+{
+  "profiles": {
+    "DocManager.Api": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DocManager.ConnectionString": "Server=localhost;Database=DocManagerDb;User Id=sa;Password=docManager!123*;TrustServerCertificate=True;MultipleActiveResultSets=True;"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5038"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "environmentVariables": {
+        "ASPNETCORE_HTTP_PORTS": "8080",
+        "DocManager.ConnectionString": "Server=localhost;Database=DocManagerDb;User Id=sa;Password=docManager!123*;TrustServerCertificate=True;MultipleActiveResultSets=True;"
+      },
+      "publishAllPorts": true,
+      "useSSL": false
+    }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json"
+}
