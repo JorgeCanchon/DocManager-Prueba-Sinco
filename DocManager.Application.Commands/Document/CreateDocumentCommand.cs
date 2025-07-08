@@ -6,6 +6,6 @@ namespace DocManager.Application.Commands.Document;
 
 public class CreateDocumentCommand : IRequest<Response<Guid>>
 {
-    public IFormFile FormFile { get; set; }
+    public IFormFile FormFile { get; set; } = null!;
     public Guid ExpedienteId { get; set; }
 }

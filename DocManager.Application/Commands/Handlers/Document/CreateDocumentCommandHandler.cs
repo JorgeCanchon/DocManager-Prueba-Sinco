@@ -5,6 +5,7 @@ using DocManager.Domain.Services.Persistence;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using DocumentEntity = DocManager.Domain.Entities.Document;
+using static DocManager.Application.Shared.Constants.ApplicationConstants;
 
 namespace DocManager.Application.Commands.Handlers.Document;
 
@@ -16,15 +17,23 @@ public class CreateDocumentCommandHandler(IRepositoryAsync<DocumentEntity> repos
     public async Task<Response<Guid>> Handle(CreateDocumentCommand request, CancellationToken cancellationToken)
     {
         DocumentEntity? document = _mapper.Map<DocumentEntity>(request);
-        document.FilePath = await SaveFile(request.FormFile);
+        await MapDocument(document!, request.FormFile);
         var data = await _repositoryAsync.AddAsync(document, cancellationToken);
         return new Response<Guid>(data.Id);
     }
 
-    // Función para guardar archivo físicamente y devolver la ruta
+    private static async Task MapDocument(DocumentEntity document, IFormFile formFile)
+    {
+        document.FilePath = await SaveFile(formFile);
+        document.ContentType = formFile.ContentType;
+        document.FileName = Path.GetFileName(document.FilePath);
+        document.FileNameOriginal = formFile.FileName;
+        document.FileSize = (uint)formFile.Length;
+    }
+
     private static async Task<string> SaveFile(IFormFile file)
     {
-        var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
+        var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), FOLDER_PATH);
         if (!Directory.Exists(uploadsFolder))
             Directory.CreateDirectory(uploadsFolder);
 

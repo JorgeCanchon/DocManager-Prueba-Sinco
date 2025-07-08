@@ -121,7 +121,7 @@
     <value>Se ha producido uno o más errores de validación</value>
   </data>
   <data name="EntityNotFound" xml:space="preserve">
-    <value>The Entity {0} not found.</value>
+    <value>The entity {0} with id {1} not found.</value>
   </data>
   <data name="RecordNotFound" xml:space="preserve">
     <value>No records found</value>
