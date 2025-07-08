@@ -10,10 +10,6 @@ public class CreateExpedienteValidator : AbstractValidator<CreateExpedienteComma
 {
     public CreateExpedienteValidator(IRepositoryAsync<ExpedienteTypeEntity> expedienteTypeRepositoryAsync)
     {
-        RuleFor(c => c.UniqueIdentifier)
-            .NotNull()
-            .NotEmpty().WithMessage(c => string.Format(ValidationMessages.IsRequired, nameof(c.UniqueIdentifier)));
-
         RuleFor(c => c.FieldValues)
             .NotNull()
             .NotEmpty().WithMessage(c => string.Format(ValidationMessages.IsRequired, nameof(c.FieldValues)));//TODO: Validar elementos que existan en db
