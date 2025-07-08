@@ -29,11 +29,15 @@ Luego ejecutamos el siguiente comando para restaurar la migracion.
 ```shell
 dotnet ef --startup-project ../docManager.api/ database update
 ```
+![QuickDBD-export](https://github.com/user-attachments/assets/01385424-a34b-4636-a7be-50ba3b4fd7c2)
 
-Conectarse a la instancia de SQLServer
+---
+# Conectarse a la instancia de SQLServer
 
 HOST: locahost
+
 USER: sa
+
 PASSWORD: docManager!123*
 
 # Ejecutar solución
