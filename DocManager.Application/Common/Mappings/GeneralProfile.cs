@@ -16,7 +16,6 @@ public class GeneralProfile : Profile
         CreateMap<CreateDocumentCommand, Document>().ReverseMap();
         CreateMap<CreateExpedienteCommand, Expediente>()
             .ForMember(dest => dest.ExpedienteTypeId, src => src.MapFrom(s => s.ExpedienteTypeId))
-            .ForMember(dest => dest.UniqueIdentifier, src => src.MapFrom(s => s.UniqueIdentifier))
             .ForMember(dest => dest.FieldValues, src => 
                     src.MapFrom(s => s.FieldValues
                         .Select(fv => new FieldValue

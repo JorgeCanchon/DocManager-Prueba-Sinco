@@ -61,7 +61,7 @@ namespace DocManager.Application._Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Entity {0} not found..
+        ///   Looks up a localized string similar to The entity {0} with id {1} not found..
         /// </summary>
         internal static string EntityNotFound {
             get {
