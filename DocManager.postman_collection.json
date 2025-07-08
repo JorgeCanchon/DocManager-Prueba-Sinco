@@ -245,6 +245,30 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "DeleteDocument",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}api/Document",
+							"host": [
+								"{{localhost}}api"
+							],
+							"path": [
+								"Document"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
