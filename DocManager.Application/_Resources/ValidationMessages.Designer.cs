@@ -70,6 +70,15 @@ namespace DocManager.Application._Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The property {0} cannot be null..
+        /// </summary>
+        internal static string IsNotNull {
+            get {
+                return ResourceManager.GetString("IsNotNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The property {0} is required..
         /// </summary>
         internal static string IsRequired {

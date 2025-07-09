@@ -1,9 +1,9 @@
 ﻿using DocManager.Application.Shared.Wrappers;
-using ExpedienteTypeEntity = DocManager.Domain.Entities.ExpedienteType;
+using DocManager.Applications.Queries.ExpedienteType.Models;
 using MediatR;
 
 namespace DocManager.Applications.Queries.ExpedienteType;
 
-public record GetAllExpedienteTypeQuery : IRequest<Response<List<ExpedienteTypeEntity>>>
+public record GetAllExpedienteTypeQuery : IRequest<Response<GetExpedienteTypeResponseModel>>
 {
 }
