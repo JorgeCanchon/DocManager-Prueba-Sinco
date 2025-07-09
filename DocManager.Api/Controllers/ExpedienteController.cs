@@ -1,17 +1,18 @@
 ﻿using DocManager.Application.Commands.Expediente;
+using DocManager.Applications.Queries.Expediente;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DocManager.Api.Controllers;
 
 public class ExpedienteController : BaseApiController
 {
-    //[HttpGet()]
-    //public async Task<IActionResult> Get() =>
-    //          Ok(await Mediator!.Send(new GetAllExpedienteQuery() { }));
+    [HttpGet()]
+    public async Task<IActionResult> Get() =>
+              Ok(await Mediator!.Send(new GetAllExpedienteQuery() { }));
 
-    //[HttpGet("{id}")]
-    //public async Task<IActionResult> Get(int id) =>
-    //    Ok(await Mediator.Send(new GetExpedienteByIdQuery() { Id = id }));
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Get(Guid id) =>
+        Ok(await Mediator.Send(new GetExpedienteByIdQuery() { Id = id }));
 
     [HttpPost]
     public async Task<IActionResult> Post(CreateExpedienteCommand command) =>

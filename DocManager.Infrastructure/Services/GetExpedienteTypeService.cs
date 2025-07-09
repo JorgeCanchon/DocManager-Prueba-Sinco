@@ -1,6 +1,5 @@
 ﻿using DocManager.Domain.Entities;
 using DocManager.Domain.Services;
-using DocManager.Domain.Services.Persistence;
 using DocManager.InfrastructureEF.Persistence;
 using Microsoft.EntityFrameworkCore;
 

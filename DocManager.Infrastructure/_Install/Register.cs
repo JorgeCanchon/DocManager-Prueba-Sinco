@@ -22,5 +22,7 @@ public static class Register
 
         services.AddTransient(typeof(IRepositoryAsync<>), typeof(RepositoryAsync<>));
         services.AddTransient<IGetExpedienteTypeService, GetExpedienteTypeService>();
+        services.AddTransient<IGetExpedienteService, GetExpedienteService>(); 
+        services.AddTransient<IGetDocumentService, GetDocumentService>();
     }
 }

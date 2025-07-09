@@ -106,7 +106,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"expedienteTypeId\": \"fcf24482-d4d2-4c7b-9b21-f93ab4a34783\",\r\n  \"uniqueIdentifier\": \"EMP-001\",\r\n  \"fieldValues\": [\r\n    {\r\n      \"customFieldId\": \"1e2e4bf5-0fb4-411f-9a3a-5fe4c0b0dac1\",\r\n      \"value\": \"Activo\",\r\n      \"expedienteId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\r\n    }\r\n  ]\r\n}",
+							"raw": "{\r\n  \"expedienteTypeId\": \"fcf24482-d4d2-4c7b-9b21-f93ab4a34783\",\r\n  \"fieldValues\": [\r\n    {\r\n      \"customFieldId\": \"1e2e4bf5-0fb4-411f-9a3a-5fe4c0b0dac1\",\r\n      \"value\": \"Activo\",\r\n      \"expedienteId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\r\n    }\r\n  ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -120,6 +120,48 @@
 							],
 							"path": [
 								"Expediente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllExpedienteQuery",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}api/Expediente",
+							"host": [
+								"{{localhost}}api"
+							],
+							"path": [
+								"Expediente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetExpedienteByIdQuery",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}api/Expediente/458385fc-5bd2-462a-81c2-574600603758",
+							"host": [
+								"{{localhost}}api"
+							],
+							"path": [
+								"Expediente",
+								"458385fc-5bd2-462a-81c2-574600603758"
 							]
 						}
 					},
@@ -225,11 +267,11 @@
 								{
 									"key": "FormFile",
 									"type": "file",
-									"src": []
+									"src": "/C:/Users/JORGE CANCHON/Pictures/Fondos/1.jpg"
 								},
 								{
 									"key": "ExpedienteID",
-									"value": "FCF24482-D4D2-4C7B-9B21-F93AB4A34783",
+									"value": "458385FC-5BD2-462A-81C2-574600603757",
 									"type": "text"
 								}
 							]
@@ -248,6 +290,33 @@
 				},
 				{
 					"name": "DeleteDocument",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}api/Document/57241b1f-9fbc-4ee8-8697-abf18ce2e904",
+							"host": [
+								"{{localhost}}api"
+							],
+							"path": [
+								"Document",
+								"57241b1f-9fbc-4ee8-8697-abf18ce2e904"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllDocumentQuery",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -265,6 +334,31 @@
 							],
 							"path": [
 								"Document"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetDocumentByIdQuery",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}"
+						},
+						"url": {
+							"raw": "{{localhost}}api/Document/458385fc-5bd2-462a-81c2-574600603757",
+							"host": [
+								"{{localhost}}api"
+							],
+							"path": [
+								"Document",
+								"458385fc-5bd2-462a-81c2-574600603757"
 							]
 						}
 					},

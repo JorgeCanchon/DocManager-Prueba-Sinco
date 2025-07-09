@@ -1,10 +1,10 @@
 ﻿using DocManager.Application.Shared.Wrappers;
-using ExpedienteTypeEntity = DocManager.Domain.Entities.ExpedienteType;
+using DocManager.Applications.Queries.ExpedienteType.Models;
 using MediatR;
 
 namespace DocManager.Applications.Queries.ExpedienteType;
 
-public record GetExpedienteTypeByIdQuery : IRequest<Response<ExpedienteTypeEntity>>
+public record GetExpedienteTypeByIdQuery : IRequest<Response<GetExpedienteTypeByIdResponseModel>>
 {
     public Guid Id { get; set; }
 }

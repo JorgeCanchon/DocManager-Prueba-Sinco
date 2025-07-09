@@ -16,8 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Expediente\" />
-    <Folder Include="CustomField\" />
+    <Folder Include="CustomField\Models\" />
   </ItemGroup>
 
 </Project>
