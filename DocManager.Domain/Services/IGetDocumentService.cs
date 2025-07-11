@@ -6,4 +6,5 @@ public interface IGetDocumentService
 {
     public Task<List<DocumentEntity>> GetDocuments(CancellationToken cancellationToken);
     public Task<DocumentEntity?> GetDocumentById(Guid id, CancellationToken cancellationToken);
+    public Task<List<DocumentEntity>> GetDocumentsByExpedienteId(Guid expedienteId, CancellationToken cancellationToken);
 }
