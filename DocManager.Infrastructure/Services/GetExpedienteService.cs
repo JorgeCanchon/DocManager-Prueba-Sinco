@@ -11,11 +11,13 @@ public class GetExpedienteService(Context context) : IGetExpedienteService
     => await context.Expediente
             .Include(e => e.FieldValues).ThenInclude(fv => fv.CustomField)
             .Include(e => e.Documents)
+            .Include(e => e.ExpedienteType)
         .FirstOrDefaultAsync(et => et.Id.Equals(id), cancellationToken);
 
     public async Task<List<Expediente>> GetExpedienteWithFieldsAndValues(CancellationToken cancellationToken)
     => await context.Expediente
             .Include(e => e.FieldValues).ThenInclude(fv => fv.CustomField)
             .Include(e => e.Documents)
+            .Include(e => e.ExpedienteType)
         .ToListAsync(cancellationToken);
 }
