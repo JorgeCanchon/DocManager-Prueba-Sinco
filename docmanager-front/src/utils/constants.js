@@ -16,7 +16,18 @@ export const ExpedienteType = {
     PUT: `${API_URL}ExpedienteType`
 }
 
+export const Document = {
+    GETBYID: `${API_URL}Document`,
+    GET: `${API_URL}Document`,
+    DELETE: `${API_URL}Document`,
+    ADD: `${API_URL}Document`,
+    PUT: `${API_URL}Document`,
+    GET_BY_EXPEDIENTE_ID: `${API_URL}Document/Expediente/`,
+    DOWNLOAD:  `${API_URL}Document/download/`
+}
+
 export const ENDPOINTS = {
     Expediente,
-    ExpedienteType
+    ExpedienteType,
+    Document
 }

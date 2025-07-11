@@ -1,20 +1,18 @@
 import { Helmet } from 'react-helmet';
 import React, { useEffect, Fragment } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux'; // Si usas Redux
+import { useDispatch, useSelector } from 'react-redux'; 
 
 export const Home = () => {
-const location = useLocation(); // Accede al objeto de ubicación (contiene pathname)
-  const navigate = useNavigate(); // Obtiene la función de navegación
-  const dispatch = useDispatch(); // Hook de Redux
+const location = useLocation(); 
+  const navigate = useNavigate(); 
+  const dispatch = useDispatch(); 
  const handleLoginSuccess = () => {
-    // Después de un login exitoso, podrías querer redirigir
-    // Esto se puede llamar desde un thunk o saga también
     navigate('/expediente');
   };
 
   const handleGoBack = () => {
-    navigate(-1); // Volver una página
+    navigate(-1); 
   };
   useEffect(() => {
     // Si necesitas que Redux sepa sobre los cambios de URL:
@@ -28,7 +26,7 @@ const location = useLocation(); // Accede al objeto de ubicación (contiene path
            <h1>Bienvenido</h1> 
                <div>
       <p>Componente en ruta: {location.pathname}</p>
-      <button onClick={handleLoginSuccess}>Ir al expediente (Ejemplo)</button>
+      <button onClick={handleLoginSuccess}>Ir a tipos de expediente</button>
       <button onClick={handleGoBack}>Volver</button>
     </div>
         </Fragment>

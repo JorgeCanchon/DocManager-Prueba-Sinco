@@ -12,4 +12,7 @@ public class GetDocumentService(Context context) : IGetDocumentService
 
     public async Task<List<Document>> GetDocuments(CancellationToken cancellationToken)
     => await context.Document.ToListAsync(cancellationToken);
+
+    public async Task<List<Document>> GetDocumentsByExpedienteId(Guid expedienteId, CancellationToken cancellationToken)
+    => await context.Document.Where(d => d.ExpedienteId.Equals(expedienteId)).ToListAsync(cancellationToken);
 }

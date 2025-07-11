@@ -1,51 +1,51 @@
 import React, { useState, Fragment, useEffect } from 'react';
 import { Table, Button, Spin , message, Popconfirm, Layout} from 'antd';
-import { GetAll } from '../services/expediente';
+import { downloadDocument, GetAll, GetByExpedienteId } from '../services/document';
 const { Header, Content, Footer } = Layout;
 
-export function Expediente(){
+export function Document(){
 
     const [loading, setLoading] = useState(false);
-    const [expedienteState, setExpedienteState] = useState([]);
-    // const { expedientes } = useSelector(
-    //     (expediente: any) => ({
-    //     expedientes: expediente
+    const [documentState, setdocumentState] = useState([]);
+    // const { documents } = useSelector(
+    //     (document: any) => ({
+    //     documents: document
     //     }),
     //     shallowEqual
     // );
-    const expedientes = expedienteState;
+    const documents = documentState;
     
     const handleDelete = async (key) => {    
-        // let res = await DeleteTodo(key);
-        // if(res.status === 200){
-        //     message.success('Tarea eliminada con éxito');
-        //     let data = todoState.filter(x => x.id !== key);
-        //     setTodoState(data);
-        //     dispatch(deleteTodo(key));
-        // }else{
-        // message.error('Ocurrio un error al eliminar la tarea');
-        // }
+
     }
 
       useEffect(() => {
-        getDataExpediente();
+        getDataDocument();
     }, []);
 
-    const getDataExpediente = async () => {
-        let data = await GetAll();
+    const getDataDocument = async () => {
+        const value = getQueryParameter('expedienteId');
+        let data = await GetByExpedienteId(value);
         console.log(data.data.result);
         switch(data.status){
         case 200:
-            data = data.data.result.expedientes.map((x) => ({ ...x, key: x.id }));
-            setExpedienteState(data);
+            data = data.data.result.documents.map((x) => ({ ...x, key: x.id }));
+            setdocumentState(data);
             break;
         case 204:
-            message.warning('No se encontraron expedientes');
+            message.warning('No se encontraron documents');
             break;
         default:
             message.error('Ocurrio un error al consultar los datos');
         }
         setLoading(false);
+    }
+
+    const getQueryParameter = (name) => {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const value = urlParams.get(name);
+        return value;
     }
 
     const columns = [
@@ -55,43 +55,31 @@ export function Expediente(){
         width: '10%',
         },
         {
-        title: 'Nombre expediente',
-        dataIndex: 'expedienteType.name',
+        title: 'Nombre',
+        dataIndex: 'fileName',
         render: (text, record) => 
-            expedientes.length >= 1 ? (
-                <Fragment>{record.expedienteType.name}</Fragment> 
+            documents.length >= 1 ? (
+                <Fragment>{record.fileName}</Fragment> 
             ) : null,
         },
         {
-        title: 'Identificador',
-        dataIndex: 'uniqueIdentifier',
+        title: 'contentType',
+        dataIndex: 'contentType',
         width: '20%',
         },
         {
-        title: 'Detalle',
-        dataIndex: 'Campos',
+        title: 'Descargar',
+        dataIndex: 'Eliminar',
         render: (text, record) =>
-            expedientes.length >= 1 ? (
-                 <Fragment>
-                    <a href='/campos'>Ver</a>
-                </Fragment> 
-            ) : null,
-        },
-        {
-        title: 'Documentos',
-        dataIndex: 'Documentos',
-        render: (text, record) =>
-            expedientes.length >= 1 ? (
-                <Fragment>
-                    <a href={`document?expedienteId=${record.id}`}>Ver</a>
-                </Fragment> 
+            documents.length >= 1 ? (
+            <a href={`http://localhost:5038/api/Document/download/${record.fileName}`} download={`${record.fileName}.pdf`}>Descargar Archivo</a>
             ) : null,
         },
         {
         title: 'Eliminar',
         dataIndex: 'Eliminar',
         render: (text, record) =>
-            expedientes.length >= 1 ? (
+            documents.length >= 1 ? (
                 <Popconfirm title="¿Esta seguro de eliminar?" onConfirm= { () => handleDelete(record.key)}>
                     <a>Eliminar</a>
                 </Popconfirm> 
@@ -118,7 +106,7 @@ export function Expediente(){
                 visible={visible}
                 handleCancel={handleCancel.bind(this)}
             /> */}
-        <Table columns={columns} dataSource={expedienteState} rowKey="id" />
+        <Table columns={columns} dataSource={documentState} rowKey="id" />
         </Fragment>
     );
 }
